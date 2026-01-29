@@ -1,36 +1,41 @@
-import {renderOrderSummary} from "./checkout/orderSummary.js"; 
-import {renderPaymentSummary} from "./checkout/paymentSummary.js";
-import {loadProducts, loadProductsFetch} from "../data/products.js";
-import {loadCart} from "../data/cart.js";
+import { renderOrderSummary } from "./checkout/orderSummary.js";
+import { renderPaymentSummary } from "./checkout/paymentSummary.js";
+import { loadProducts, loadProductsFetch } from "../data/products.js";
+import { loadCart, calculateCartQuantity } from "../data/cart.js";
 // import "../data/cart-class.js";
 // import "../data/backend-practice.js"
 
-async function loadPage(){
+function updateCheckoutHeader() {
+  const cartQuantity = calculateCartQuantity();
+  document.querySelector(".checkout-header-middle-section").innerHTML = `
+    Checkout (<a class="return-to-home-link"
+      href="amazon.html">${cartQuantity} item${cartQuantity !== 1 ? "s" : ""}</a>)
+  `;
+}
 
-  try{
+async function loadPage() {
+  try {
     // throw new Error("error1");
-    
 
     await loadProductsFetch();
 
     const value = await new Promise((resolve, reject) => {
       // throw new Error("error2");
-      
+
       loadCart(() => {
         // reject("error3")
         resolve("value3");
       });
     });
-  }catch(error){
+  } catch (error) {
     console.log("unexpected error. Please try again later.");
   }
 
-  
-
+  updateCheckoutHeader();
   renderOrderSummary();
   renderPaymentSummary();
 }
-loadPage()
+loadPage();
 
 /*
 Promise.all([
