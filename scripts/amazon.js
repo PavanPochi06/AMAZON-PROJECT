@@ -86,6 +86,14 @@ function renderProductsGrid() {
       const productId = button.dataset.productId;
       addToCart(productId);
       updateCartQuantity();
+
+      const addedMessage = button
+        .closest(".product-container")
+        .querySelector(".added-to-cart");
+      addedMessage.style.opacity = "1";
+      setTimeout(() => {
+        addedMessage.style.opacity = "0";
+      }, 3000);
     });
   });
 
