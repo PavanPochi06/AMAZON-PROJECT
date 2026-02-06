@@ -16,7 +16,9 @@ import { renderPaymentSummary } from "./paymentSummary.js";
 
 function updateCheckoutHeader() {
   const cartQuantity = calculateCartQuantity();
-  document.querySelector(".checkout-header-middle-section").innerHTML = `
+  const headerEl = document.querySelector(".checkout-header-middle-section");
+  if (!headerEl) return;
+  headerEl.innerHTML = `
     Checkout (<a class="return-to-home-link"
       href="amazon.html">${cartQuantity} item${cartQuantity !== 1 ? "s" : ""}</a>)
   `;
