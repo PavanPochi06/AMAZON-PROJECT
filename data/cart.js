@@ -82,3 +82,8 @@ export function calculateCartQuantity() {
 
   return cartQuantity;
 }
+
+export function clearCart() {
+  cart = [];
+  saveToStorage();
+}
